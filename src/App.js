@@ -105,9 +105,9 @@ const CheckoutPage = () => {
       </div>
 
       <div style={styles.buttonContainer}>
-        <button style={styles.applyButton} onClick={addOrder}>Add</button>
-        <button style={styles.cancelButton} onClick={deleteOrder}>Delete</button>
-        <button style={styles.confirmButton} onClick={updateOrder}>Update</button>
+        <button style={styles.applyButton} onClick={addOrder}>Place Order</button>
+        <button style={styles.cancelButton} onClick={deleteOrder}>Delete Order</button>
+        <button style={styles.confirmButton} onClick={updateOrder}>Update Order</button>
       </div>
     </div>
   );
@@ -154,7 +154,7 @@ const styles = {
   },
   applyButton: {
     backgroundColor: '#007bff',
-    color: '#fff',
+    color: 'white',
     border: 'none',
     padding: '10px 20px',
     borderRadius: '20px',
@@ -166,7 +166,7 @@ const styles = {
   },
   cancelButton: {
     backgroundColor: 'red',
-    color: '#000',
+    color: 'white',
     border: 'none',
     padding: '10px 20px',
     borderRadius: '20px',
@@ -174,7 +174,7 @@ const styles = {
   },
   confirmButton: {
     backgroundColor: '#ffc107',
-    color: '#000',
+    color: 'white',
     border: 'none',
     padding: '10px 20px',
     borderRadius: '20px',
