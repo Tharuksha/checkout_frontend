@@ -166,7 +166,7 @@ const styles = {
   },
   cancelButton: {
     backgroundColor: '#ccc',
-    color: '#000',
+    color: 'red',
     border: 'none',
     padding: '10px 20px',
     borderRadius: '20px',
