@@ -19,7 +19,7 @@ const CheckoutPage = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/orders');
+      const response = await axios.get('https://4b51-2402-d000-812c-5986-2cd9-e1df-2c96-49d4.ngrok-free.app/api/orders');
       setOrders(response.data);
     } catch (error) {
       console.error('Error fetching orders:', error);
@@ -33,7 +33,7 @@ const CheckoutPage = () => {
 
   const addOrder = async () => {
     try {
-      await axios.post('http://localhost:8080/api/orders', newOrder);
+      await axios.post('https://4b51-2402-d000-812c-5986-2cd9-e1df-2c96-49d4.ngrok-free.app/api/orders', newOrder);
       fetchOrders();
       setNewOrder({
         username: '',
@@ -49,7 +49,7 @@ const CheckoutPage = () => {
 
   const deleteOrder = async () => {
     try {
-      await axios.delete(`http://localhost:8080/api/orders/${orderId}`);
+      await axios.delete(`https://4b51-2402-d000-812c-5986-2cd9-e1df-2c96-49d4.ngrok-free.app/api/orders/${orderId}`);
       fetchOrders();
     } catch (error) {
       console.error('Error deleting order:', error);
@@ -58,7 +58,7 @@ const CheckoutPage = () => {
 
   const updateOrder = async () => {
     try {
-      await axios.put(`http://localhost:8080/api/orders/${orderId}`, newOrder);
+      await axios.put(`https://4b51-2402-d000-812c-5986-2cd9-e1df-2c96-49d4.ngrok-free.app/api/orders/${orderId}`, newOrder);
       fetchOrders();
     } catch (error) {
       console.error('Error updating order:', error);
