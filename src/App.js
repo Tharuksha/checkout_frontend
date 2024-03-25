@@ -165,8 +165,8 @@ const styles = {
     justifyContent: 'space-between',
   },
   cancelButton: {
-    backgroundColor: '#ccc',
-    color: 'red',
+    backgroundColor: 'red',
+    color: '#000',
     border: 'none',
     padding: '10px 20px',
     borderRadius: '20px',
