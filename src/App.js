@@ -4,18 +4,21 @@ import Carosel from './Components/Carousel';
 
 const CheckoutPage = () => {
   const [newOrder, setNewOrder] = useState({
-    username: '',
+    name: '',
+    u_id:'',
     contactNumber: '',
     deliveryDate: '',
     shippingAddress: '',
     note: ''
   });
   const [orderId, setOrderId] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState('');
 
   const fetchOrderDetails = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/orders/${orderId}`);
-      setNewOrder(response.data); // Assuming response.data is an object containing order details
+      setNewOrder(response.data); 
     } catch (error) {
       console.error('Error fetching order details:', error);
     }
@@ -27,7 +30,7 @@ const CheckoutPage = () => {
 
   const handleInputChange = (e) => {
     const { value } = e.target;
-    setOrderId(value); // Update orderId as user types
+    setOrderId(value); 
   };
 
   const handleInputChangeForOrder = (e) => {
@@ -41,11 +44,14 @@ const CheckoutPage = () => {
       fetchOrderDetails();
       setNewOrder({
         username: '',
+        u_id:'',
         contactNumber: '',
         deliveryDate: '',
         shippingAddress: '',
         note: ''
       });
+      setShowMessage(true);
+      setMessage('Order placed successfully');
     } catch (error) {
       console.error('Error adding order:', error);
     }
@@ -55,6 +61,8 @@ const CheckoutPage = () => {
     try {
       await axios.delete(`http://localhost:8080/api/orders/${orderId}`);
       fetchOrderDetails();
+      setShowMessage(true);
+      setMessage('Order deleted successfully');
     } catch (error) {
       console.error('Error deleting order:', error);
     }
@@ -64,6 +72,8 @@ const CheckoutPage = () => {
     try {
       await axios.put(`http://localhost:8080/api/orders/${orderId}`, newOrder);
       fetchOrderDetails();
+      setShowMessage(true);
+      setMessage('Order updated successfully');
     } catch (error) {
       console.error('Error updating order:', error);
     }
@@ -72,11 +82,13 @@ const CheckoutPage = () => {
   return (
     <div style={styles.container}>
       <Carosel style={{ marginBottom: '80px' }} />
+      {showMessage && <div style={styles.message}>{message}</div>}
       <div style={styles.section}>
-        <h2 style={{ marginBottom: '15px' }}>Contact Information</h2>
+        <h2 style={{ marginBottom: '55px' }}>Contact Information</h2>
         <div style={styles.inputContainer}>
-          <input type="text" placeholder="Email" style={styles.input} name="email" value={newOrder.email} onChange={handleInputChangeForOrder} />
-          <input type="text" placeholder="Name" style={styles.input} name="username" value={newOrder.username} onChange={handleInputChangeForOrder} />
+        
+        <input type="text" placeholder="Name" style={styles.input} name="name" value={newOrder.name} onChange={handleInputChangeForOrder} />
+
           <input type="text" placeholder="Mobile" style={styles.input} name="contactNumber" value={newOrder.contactNumber} onChange={handleInputChangeForOrder} />
         </div>
       </div>
@@ -86,7 +98,6 @@ const CheckoutPage = () => {
         <div style={styles.orderDetails}>
           <div> <span style={styles.price}></span></div>
           <div> <span style={styles.price}></span></div>
-          {/* Add more order details here */}
         </div>
         <div style={styles.total}>
           <div></div>
@@ -95,7 +106,7 @@ const CheckoutPage = () => {
       </div>
 
       <div style={styles.section}>
-        <h2 style={{ marginBottom: '15px' }}>Shipping Method</h2>
+        <h2 style={{ marginBottom: '55px' }}>Shipping Method</h2>
         <div style={styles.inputContainer}>
           <input type="text" placeholder="Today" style={styles.input} name="deliveryDate" value={newOrder.deliveryDate} onChange={handleInputChangeForOrder} />
           <input type="text" placeholder="Address" style={styles.input} name="shippingAddress" value={newOrder.shippingAddress} onChange={handleInputChangeForOrder} />
@@ -106,7 +117,6 @@ const CheckoutPage = () => {
         <div style={styles.inputContainer}>
           <input type="text" placeholder="Special Note" style={styles.input} name="note" value={newOrder.note} onChange={handleInputChangeForOrder} />
           <input type="text" placeholder="Order Id" style={styles.input} value={orderId} onChange={handleInputChange} />
-     
         </div>
       </div>
 
@@ -114,7 +124,7 @@ const CheckoutPage = () => {
         <button style={styles.applyButton} onClick={addOrder}>Place Order</button>
         <button style={styles.cancelButton} onClick={deleteOrder}>Delete Order</button>
         <button style={styles.confirmButton} onClick={updateOrder}>Update Order</button>
-        <button style={styles.searchButton} onClick={handleSearch}>Search Order</button>
+        <button style={styles.searchButton} onClick={handleSearch}>Search Order Details</button>
       </div>
     </div>
   );
@@ -122,7 +132,7 @@ const CheckoutPage = () => {
 
 const styles = {
   container: {
-    maxWidth: '900px',
+    maxWidth: '1700px',
     margin: '0 auto',
     padding: '20px',
     backgroundColor: 'black',
@@ -144,7 +154,7 @@ const styles = {
     border: '1px solid #000',
     borderRadius: '20px',
     backgroundColor: 'white',
-    color: 'black' // Set font color to white
+    color: 'black' 
   },
   orderDetails: {
     marginBottom: '10px',
@@ -194,6 +204,13 @@ const styles = {
     borderRadius: '20px',
     cursor: 'pointer',
   },
+  message: {
+    backgroundColor: 'blue',
+    color: 'white',
+    padding: '5px',
+    borderRadius: '5px',
+    marginBottom: '5px',
+  }
 };
 
 export default CheckoutPage;
