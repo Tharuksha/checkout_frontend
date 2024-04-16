@@ -19,7 +19,7 @@ const ServiceHome = () => {
             <div className="service-home-content">
                 <div className="text-center">
                     <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-                        <span className="block">THANK YOU FOR</span>{' '}
+                        <span className="block"> PLACE </span>{' '}
                         <span>
                             <ReactTyped
                                 className="md:text-5xl sm:text-4xl text-4xl font-bold md:pl-4 text-cyan-600 font-['Maven Pro'] tracking-widest leading-loose"

@@ -84,29 +84,15 @@ const CheckoutPage = () => {
       <Carosel style={{ marginBottom: '80px' }} />
       {showMessage && <div style={styles.message}>{message}</div>}
       <div style={styles.section}>
-        <h2 style={{ marginBottom: '55px' }}>Contact Information</h2>
+        <h2 style={styles.glowingHeading}>Contact Information</h2>
         <div style={styles.inputContainer}>
-        
-        <input type="text" placeholder="Name" style={styles.input} name="name" value={newOrder.name} onChange={handleInputChangeForOrder} />
-
+          <input type="text" placeholder="Name" style={styles.input} name="name" value={newOrder.name} onChange={handleInputChangeForOrder} />
           <input type="text" placeholder="Mobile" style={styles.input} name="contactNumber" value={newOrder.contactNumber} onChange={handleInputChangeForOrder} />
         </div>
       </div>
 
       <div style={styles.section}>
-        <h2></h2>
-        <div style={styles.orderDetails}>
-          <div> <span style={styles.price}></span></div>
-          <div> <span style={styles.price}></span></div>
-        </div>
-        <div style={styles.total}>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-
-      <div style={styles.section}>
-        <h2 style={{ marginBottom: '55px' }}>Shipping Method</h2>
+        <h2 style={styles.glowingHeading}>Shipping Method</h2>
         <div style={styles.inputContainer}>
           <input type="text" placeholder="Today" style={styles.input} name="deliveryDate" value={newOrder.deliveryDate} onChange={handleInputChangeForOrder} />
           <input type="text" placeholder="Address" style={styles.input} name="shippingAddress" value={newOrder.shippingAddress} onChange={handleInputChangeForOrder} />
@@ -155,6 +141,30 @@ const styles = {
     borderRadius: '20px',
     backgroundColor: 'white',
     color: 'black' 
+  },
+  glowingHeading: {
+    position: 'relative',
+    display: 'inline-block',
+    marginBottom: '55px',
+  },
+  glow: {
+    position: 'absolute',
+    content: '""',
+    width: '100%',
+    height: '100%',
+    top: '0',
+    left: '0',
+    borderRadius: '20px',
+    boxShadow: '0 0 20px 10px rgba(0,0,255,0.5)',
+    animation: 'glow 2s infinite alternate',
+  },
+  '@keyframes glow': {
+    '0%': {
+      boxShadow: '0 0 20px 10px rgba(0,0,255,0.5)',
+    },
+    '100%': {
+      boxShadow: '0 0 20px 10px rgba(0,0,255,0)',
+    },
   },
   orderDetails: {
     marginBottom: '10px',
