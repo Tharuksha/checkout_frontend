@@ -1,226 +1,152 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import Carosel from './Components/Carousel';
+import 'react-datetime/css/react-datetime.css'; // Import CSS for the date-time picker
+import './App.css'; // Keep the existing CSS imports
+import Carousel from './Components/Carousel';
+import Datetime from 'react-datetime'; // Import the date-time picker component
 
-const CheckoutPage = () => {
-  const [newOrder, setNewOrder] = useState({
-    name: '',
-    u_id:'',
-    contactNumber: '',
-    deliveryDate: '',
-    shippingAddress: '',
-    note: ''
-  });
-  const [orderId, setOrderId] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const [message, setMessage] = useState('');
-
-  const fetchOrderDetails = async () => {
-    try {
-      const response = await axios.get(`http://localhost:8080/api/orders/${orderId}`);
-      setNewOrder(response.data); 
-    } catch (error) {
-      console.error('Error fetching order details:', error);
-    }
+const CourierRegistration = () => {
+  // Inline styles for text fields and buttons with border radius and updated colors
+  const textFieldStyle = {
+    padding: '5px',
+    margin: '10px 0',
+    display: 'flex',
+    alignItems: 'center',
+    borderRadius: '10px', // Rounded corners for text fields
+    border: '1px solid #ccc', // Border style
   };
 
-  const handleSearch = () => {
-    fetchOrderDetails();
+  const gapStyle = {
+    padding: '0 5px', // Small gap between elements
   };
 
-  const handleInputChange = (e) => {
-    const { value } = e.target;
-    setOrderId(value); 
+  const updateButtonStyle = {
+    marginLeft: '5px',
+    padding: '5px',
+    border: 'none', // Remove border
+    borderRadius: '5px', // Rounded corners for buttons
+    background: 'blue', // Blue color for Update button
+    color: 'white', // White text on buttons
+    cursor: 'pointer', // Cursor style
   };
 
-  const handleInputChangeForOrder = (e) => {
-    const { name, value } = e.target;
-    setNewOrder(prevOrder => ({ ...prevOrder, [name]: value }));
+  const deleteButtonStyle = {
+    marginLeft: '5px',
+    padding: '5px',
+    border: 'none', // Remove border
+    borderRadius: '5px', // Rounded corners for buttons
+    background: '#FF0000', // Red color for Delete button
+    color: 'white', // White text on buttons
+    cursor: 'pointer',
   };
 
-  const addOrder = async () => {
-    try {
-      await axios.post('http://localhost:8080/api/orders', newOrder);
-      fetchOrderDetails();
-      setNewOrder({
-        username: '',
-        u_id:'',
-        contactNumber: '',
-        deliveryDate: '',
-        shippingAddress: '',
-        note: ''
-      });
-      setShowMessage(true);
-      setMessage('Order placed successfully');
-    } catch (error) {
-      console.error('Error adding order:', error);
-    }
+  const submitButtonStyle = {
+    padding: '10px',
+    border: 'none',
+    borderRadius: '20px', // Rounded corners
+    background: 'green', // Green color for Submit button
+    color: 'white',
+    cursor: 'pointer',
   };
 
-  const deleteOrder = async () => {
-    try {
-      await axios.delete(`http://localhost:8080/api/orders/${orderId}`);
-      fetchOrderDetails();
-      setShowMessage(true);
-      setMessage('Order deleted successfully');
-    } catch (error) {
-      console.error('Error deleting order:', error);
-    }
+  const searchButtonStyle = {
+    padding: '10px',
+    border: 'none',
+    borderRadius: '20px', // Rounded corners
+    background: '	#ff1493', // Pink color for Search button
+    color: 'white',
+    cursor: 'pointer',
   };
 
-  const updateOrder = async () => {
-    try {
-      await axios.put(`http://localhost:8080/api/orders/${orderId}`, newOrder);
-      fetchOrderDetails();
-      setShowMessage(true);
-      setMessage('Order updated successfully');
-    } catch (error) {
-      console.error('Error updating order:', error);
-    }
-  };
+  const [deliveryDate, setDeliveryDate] = useState(null); // State for the date-time picker
 
   return (
-    <div style={styles.container}>
-      <Carosel style={{ marginBottom: '80px' }} />
-      {showMessage && <div style={styles.message}>{message}</div>}
-      <div style={styles.section}>
-        <h2 style={styles.glowingHeading}>Contact Information</h2>
-        <div style={styles.inputContainer}>
-          <input type="text" placeholder="Name" style={styles.input} name="name" value={newOrder.name} onChange={handleInputChangeForOrder} />
-          <input type="text" placeholder="Mobile" style={styles.input} name="contactNumber" value={newOrder.contactNumber} onChange={handleInputChangeForOrder} />
+    <>
+      <Carousel style={{ marginBottom: '80px' }} />
+      <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+        {/* ID Text Field with buttons */}
+        <div style={textFieldStyle}>
+          <input type="text" placeholder="BookID" style={{ flex: 1 }} />
+          <span style={gapStyle}></span>
+          <button style={updateButtonStyle}>Update</button>
+          <span style={gapStyle}></span>
+          <button style={deleteButtonStyle}>Delete</button>
+        </div>
+
+        {/* UserId Text Field with buttons */}
+        <div style={textFieldStyle}>
+          <input type="text" placeholder="UserId" style={{ flex: 1 }} />
+          <span style={gapStyle}></span>
+          <button style={updateButtonStyle}>Update</button>
+          <span style={gapStyle}></span>
+          <button style={deleteButtonStyle}>Delete</button>
+        </div>
+
+        {/* Contact Number Text Field with buttons */}
+        <div style={textFieldStyle}>
+          <input type="text" placeholder="Enter Contact Number" style={{ flex: 1 }} />
+          <span style={gapStyle}></span>
+          <button style={updateButtonStyle}>Update</button>
+          <span style={gapStyle}></span>
+          <button style={deleteButtonStyle}>Delete</button>
+        </div>
+
+        {/* Delivery Date Text Field with buttons */}
+        <div style={textFieldStyle}>
+          <Datetime
+            value={deliveryDate}
+            onChange={setDeliveryDate}
+            inputProps={{ placeholder: 'Select Delivery Date' }} // Custom placeholder
+            style={{ flex: 1 }}
+          />
+          <span style={gapStyle}></span>
+          <button style={updateButtonStyle}>Update</button>
+          <span style={gapStyle}></span>
+          <button style={deleteButtonStyle}>Delete</button>
+        </div>
+
+        {/* Note Text Field with buttons */}
+        <div style={textFieldStyle}>
+          <input type="text" placeholder="Note" style={{ flex: 1 }} />
+          <span style={gapStyle}></span>
+          <button style={updateButtonStyle}>Update</button>
+          <span style={gapStyle}></span>
+          <button style={deleteButtonStyle}>Delete</button>
+        </div>
+
+        {/* Shipping Address Text Field with buttons */}
+        <div style={textFieldStyle}>
+          <input type="text" placeholder="Enter Shipping Address" style={{ flex: 1 }} />
+          <span style={gapStyle}></span>
+          <button style={updateButtonStyle}>Update</button>
+          <span style={gapStyle}></span>
+          <button style={deleteButtonStyle}>Delete</button>
+        </div>
+
+        {/* Submit and Search buttons aligned to the center */}
+        <div style={{ textAlign: 'center', marginTop: '30px' }}>
+          <button style={submitButtonStyle}>Submit</button>
+          <span style={gapStyle}></span>
+          <button style={searchButtonStyle}>Search</button>
         </div>
       </div>
-
-      <div style={styles.section}>
-        <h2 style={styles.glowingHeading}>Shipping Method</h2>
-        <div style={styles.inputContainer}>
-          <input type="text" placeholder="Today" style={styles.input} name="deliveryDate" value={newOrder.deliveryDate} onChange={handleInputChangeForOrder} />
-          <input type="text" placeholder="Address" style={styles.input} name="shippingAddress" value={newOrder.shippingAddress} onChange={handleInputChangeForOrder} />
-        </div>
-      </div>
-
-      <div style={styles.section}>
-        <div style={styles.inputContainer}>
-          <input type="text" placeholder="Special Note" style={styles.input} name="note" value={newOrder.note} onChange={handleInputChangeForOrder} />
-          <input type="text" placeholder="Order Id" style={styles.input} value={orderId} onChange={handleInputChange} />
-        </div>
-      </div>
-
-      <div style={styles.buttonContainer}>
-        <button style={styles.applyButton} onClick={addOrder}>Place Order</button>
-        <button style={styles.cancelButton} onClick={deleteOrder}>Delete Order</button>
-        <button style={styles.confirmButton} onClick={updateOrder}>Update Order</button>
-        <button style={styles.searchButton} onClick={handleSearch}>Search Order Details</button>
-      </div>
-    </div>
+    </>
   );
 };
 
-const styles = {
-  container: {
-    maxWidth: '1700px',
-    margin: '0 auto',
-    padding: '20px',
-    backgroundColor: 'black',
-    boxShadow: '0px 0px 80px rgba(0, 0, 0, 0.8)',
-    borderRadius: '30px',
-    color: 'white'
-  },
-  section: {
-    marginBottom: '20px',
-  },
-  inputContainer: {
-    display: 'flex',
-    marginBottom: '10px',
-  },
-  input: {
-    flex: '1',
-    marginRight: '10px',
-    padding: '8px',
-    border: '1px solid #000',
-    borderRadius: '20px',
-    backgroundColor: 'white',
-    color: 'black' 
-  },
-  glowingHeading: {
-    position: 'relative',
-    display: 'inline-block',
-    marginBottom: '55px',
-  },
-  glow: {
-    position: 'absolute',
-    content: '""',
-    width: '100%',
-    height: '100%',
-    top: '0',
-    left: '0',
-    borderRadius: '20px',
-    boxShadow: '0 0 20px 10px rgba(0,0,255,0.5)',
-    animation: 'glow 2s infinite alternate',
-  },
-  '@keyframes glow': {
-    '0%': {
-      boxShadow: '0 0 20px 10px rgba(0,0,255,0.5)',
-    },
-    '100%': {
-      boxShadow: '0 0 20px 10px rgba(0,0,255,0)',
-    },
-  },
-  orderDetails: {
-    marginBottom: '10px',
-  },
-  price: {
-    marginLeft: '10px',
-  },
-  total: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    borderTop: '1px solid #ddd',
-    paddingTop: '10px',
-  },
-  applyButton: {
-    backgroundColor: '#007bff',
-    color: 'white',
-    border: 'none',
-    padding: '10px 20px',
-    borderRadius: '20px',
-    cursor: 'pointer',
-  },
-  buttonContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  cancelButton: {
-    backgroundColor: 'red',
-    color: 'white',
-    border: 'none',
-    padding: '10px 20px',
-    borderRadius: '20px',
-    cursor: 'pointer',
-  },
-  confirmButton: {
-    backgroundColor: '#ffc107',
-    color: 'white',
-    border: 'none',
-    padding: '10px 20px',
-    borderRadius: '20px',
-    cursor: 'pointer',
-  },
-  searchButton: {
-    backgroundColor: 'green',
-    color: 'white',
-    border: 'none',
-    padding: '10px 20px',
-    borderRadius: '20px',
-    cursor: 'pointer',
-  },
-  message: {
-    backgroundColor: 'blue',
-    color: 'white',
-    padding: '5px',
-    borderRadius: '5px',
-    marginBottom: '5px',
-  }
-};
+function App() {
+  const appStyle = {
+    backgroundColor: 'black', // Background color
+    height: '200vh', // Full viewport height
+    padding: '20px', // Padding for content
+    textAlign: 'center', // Align text to center
+  };
 
-export default CheckoutPage;
+  return (
+    <div className="App" style={appStyle}>
+      <CourierRegistration /> {/* Include the CourierRegistration component */}
+    </div>
+  );
+}
+
+export default App;
+
