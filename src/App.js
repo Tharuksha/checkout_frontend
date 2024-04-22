@@ -74,9 +74,9 @@ const CourierRegistration = () => {
   // Event handlers for each action
 
   const handleDelete = async () => {
-    if (bookId) {
+    if (orderid) {
       try {
-        await axios.delete(`http://localhost:8080/api/book/${bookId}`);
+        await axios.delete(`http://localhost:8080/api/orders/${orderid}`);
         alert('Order deleted successfully');
       } catch (error) {
         alert('Error deleting order');
