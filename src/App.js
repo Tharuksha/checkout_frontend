@@ -100,7 +100,7 @@ const modalButtonStyle = {
   const handleDelete = async () => {
     if (orderId) {
       try {
-        await axios.delete(`http://localhost:8080/api/orders/${orderId}`);
+        await axios.delete(`https://api-ad.tharuksha.com/api/orders/${orderId}`);
         alert('Order deleted successfully');
       } catch (error) {
         alert('Error deleting order');
@@ -113,7 +113,7 @@ const modalButtonStyle = {
   const handleUpdate = async () => {
     if (orderId) {
       try {
-        await axios.put(`http://localhost:8080/api/orders/${orderId}`, {
+        await axios.put(`https://api-ad.tharuksha.com/api/orders/${orderId}`, {
           book_id,
           userid,
           contactNumber,
@@ -142,7 +142,7 @@ const modalButtonStyle = {
       };
 
       // Submit the order via POST request
-      await axios.post('http://localhost:8080/api/orders', order);
+      await axios.post('https://api-ad.tharuksha.com/api/orders', order);
 
       // Set the submitted order and open the modal
       setSubmittedOrder(order);
@@ -160,7 +160,7 @@ const onClose = () => {
   const handleSearch = async () => {
     if (orderId) {
       try {
-        const response = await axios.get(`http://localhost:8080/api/orders/${orderId}`);
+        const response = await axios.get(`https://api-ad.tharuksha.com/api/orders/${orderId}`);
         if (response.data) {
           const order = response.data;
           setBookId(order.book_id);
@@ -244,6 +244,15 @@ const onClose = () => {
               value={orderDate}
               onChange={setorderDate}
               inputProps={{ placeholder: 'Select Date' }}
+            />
+          </div>
+          <div style={textFieldStyle}>
+            <input
+              type="text"
+              placeholder="Order Id "
+              style={{ flex: 1 }}
+              value={orderId}
+              onChange={(e) => setOrderId(e.target.value)}
             />
           </div>
 
