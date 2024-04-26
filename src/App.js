@@ -49,7 +49,7 @@ const OrderPlacing = () => {
 
   const buttonStyle = {
     padding: '10px',
-    borderRadius: '15px',
+    borderRadius: '30px',
     background: 'green',
     color: 'white',
     cursor: 'pointer',
@@ -189,15 +189,7 @@ const onClose = () => {
           Place Your Order
         </animated.h2>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div style={textFieldStyle}>
-            <input
-              type="text"
-              placeholder="OrderID"
-              style={{ flex: 1 }}
-              onChange={(e) => setOrderId(e.target.value)}
-            />
-          </div>
-
+          
           <div style={textFieldStyle}>
             <input
               type="text"
@@ -251,7 +243,7 @@ const onClose = () => {
             <Datetime
               value={orderDate}
               onChange={setorderDate}
-              inputProps={{ placeholder: 'Select Delivery Date' }}
+              inputProps={{ placeholder: 'Select Date' }}
             />
           </div>
 
@@ -263,7 +255,7 @@ const onClose = () => {
             <span style={gapStyle}></span>
             <button style={buttonStyle} onClick={handleUpdate}>Update Order</button>
             <span style={gapStyle}></span>
-            <button style={buttonStyle} onClick={handleDelete}>Delete Order</button>
+            
           </div>
           
       {/* Modal for order receipt */}
